@@ -281,7 +281,7 @@ export default function SteamDashboard() {
                 <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>시간당 판매총량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
-                  <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
+                  <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>ton/시간</span>
                 </p>
               </div>
             </div>
