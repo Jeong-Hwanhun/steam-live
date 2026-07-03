@@ -6,15 +6,14 @@ import {
 } from 'recharts';
 
 const CUSTOMERS = [
-  { key: 'sc',       name: '홍덕SC',   color: '#2a78d6' },
+  { key: 'sc',       name: '신(BW)',    color: '#2a78d6' },
   { key: 'skw',      name: '홍덕SKW',  color: '#1baf7a' },
   { key: 'union_co', name: '유니온',   color: '#eda100' },
   { key: 'goryeo',   name: '고려강선', color: '#e34948' },
-  { key: 'ksw',      name: '코스와이어', color: '#9b59b6' },
-  { key: 'kw',       name: 'KW',       color: '#27ae60' },
+  { key: 'ksw',      name: '고려특수선재', color: '#9b59b6' },
+  { key: 'kw',       name: '코스와이어',  color: '#27ae60' },
   { key: 'hangeum',  name: '한금',     color: '#e87ba4' },
   { key: 'sw',       name: 'SW',       color: '#eb6834' },
-  { key: 'bw',       name: 'BW',       color: '#898781', inactive: true },
   { key: 'pgt',      name: '피지티',   color: '#5c7cfa' },
 ];
 
