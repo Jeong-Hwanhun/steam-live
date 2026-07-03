@@ -271,14 +271,14 @@ export default function SteamDashboard() {
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 분당 사용량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}> 판매 총량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalFlow}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
                 </p>
               </div>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 합계</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 판매량 합계</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
@@ -304,14 +304,14 @@ export default function SteamDashboard() {
                       {c.dormant && <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 4 }}>구선</span>}
                     </p>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>분당</p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}></p>
                       <p style={{ fontSize: 22, fontWeight: 500, color: fv === null ? 'var(--text-muted)' : (active ? c.color : 'var(--text-muted)') }}>
                         {fv === null ? '—' : fv.toFixed(1)}
                         <span style={{ fontSize: 12, color: 'var(--text-muted)', marginLeft: 3, fontWeight: 400 }}>kg</span>
                       </p>
                     </div>
                     <div>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간</p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간 판매량</p>
                       <p style={{ fontSize: 15, color: rv !== null && rv > 0 ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
                         {rv === null ? '—' : rv.toFixed(3)}
                         <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>톤</span>
