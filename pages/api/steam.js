@@ -34,6 +34,9 @@ export default async function handler(req, res) {
       if (!start || !end) return res.status(400).json({ error: 'start, end 파라미터 필요' });
       endpoint = `steam_daily?date=gte.${start}&date=lte.${end}&order=date`;
       break;
+    case 'monthly':
+      endpoint = 'steam_monthly?order=month';
+      break;
     default:
       return res.status(400).json({ error: '유효하지 않은 type' });
   }
