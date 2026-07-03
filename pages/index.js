@@ -13,7 +13,7 @@ const CUSTOMERS = [
   { key: 'ksw',      name: '고려특수선재', color: '#9b59b6' },
   { key: 'kw',       name: '코스와이어',  color: '#27ae60' },
   { key: 'hangeum',  name: '한금',     color: '#e87ba4' },
-  { key: 'sw',       name: 'SW',       color: '#eb6834' },
+  { key: 'sw',       name: '홍덕SW',       color: '#eb6834' },
   { key: 'pgt',      name: '피지티',   color: '#5c7cfa' },
 ];
 
