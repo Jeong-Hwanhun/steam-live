@@ -338,7 +338,7 @@ export default function SteamDashboard() {
               hourlyData.length === 0 ? <EmptyState msg={`${selectedDate} 데이터가 없습니다`} /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  {selectedDate} 시간별 사용량 (톤/시간)
+                  {selectedDate} 시간별 판매량 (톤/시간)
                 </p>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={hourlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
@@ -375,7 +375,7 @@ export default function SteamDashboard() {
               dailyData.length === 0 ? <EmptyState msg="선택한 기간 데이터가 없습니다" /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  일별 사용량 (톤/일)
+                  일별 판매량 (톤/일)
                 </p>
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={dailyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
@@ -402,7 +402,7 @@ export default function SteamDashboard() {
               monthlyData.length === 0 ? <EmptyState msg="데이터가 없습니다" /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  월별 사용량 (톤/월)
+                  월별 판매량 (톤/월)
                 </p>
                 <ResponsiveContainer width="100%" height={280}>
                   <BarChart data={monthlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
