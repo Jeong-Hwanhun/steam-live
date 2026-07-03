@@ -6,7 +6,7 @@ import {
 } from 'recharts';
 
 const CUSTOMERS = [
-  { key: 'sc',       name: '신(BW)',    color: '#2a78d6' },
+  { key: 'sc',       name: 'BW(홍덕SC)',    color: '#2a78d6' },
   { key: 'skw',      name: '홍덕SKW',  color: '#1baf7a' },
   { key: 'union_co', name: '유니온',   color: '#eda100' },
   { key: 'goryeo',   name: '고려강선', color: '#e34948' },
