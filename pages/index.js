@@ -6,15 +6,16 @@ import {
 } from 'recharts';
 
 const CUSTOMERS = [
-  { key: 'sc',       name: 'BW(홍덕SC)',    color: '#2a78d6' },
-  { key: 'skw',      name: '홍덕SKW',  color: '#1baf7a' },
-  { key: 'union_co', name: '유니온',   color: '#eda100' },
-  { key: 'goryeo',   name: '고려강선', color: '#e34948' },
-  { key: 'ksw',      name: '고려특수선재', color: '#9b59b6' },
-  { key: 'kw',       name: '코스와이어',  color: '#27ae60' },
-  { key: 'hangeum',  name: '한금',     color: '#e87ba4' },
-  { key: 'sw',       name: '홍덕SW',       color: '#eb6834' },
-  { key: 'pgt',      name: '피지티',   color: '#5c7cfa' },
+  { key: 'sc',       name: '홍덕BW(홍덕SC)', color: '#2a78d6' },
+  { key: 'sw',       name: '홍덕SW',         color: '#eb6834' },
+  { key: 'skw',      name: '홍덕SKW',        color: '#1baf7a' },
+  { key: 'bw',       name: '홍덕BW(구선)',   color: '#556070', dormant: true },
+  { key: 'ksw',      name: '고려특수선재',   color: '#9b59b6' },
+  { key: 'goryeo',   name: '고려강선',       color: '#e34948' },
+  { key: 'kw',       name: '코스와이어',     color: '#27ae60' },
+  { key: 'union_co', name: '유니온',         color: '#eda100' },
+  { key: 'hangeum',  name: '한금',           color: '#e87ba4' },
+  { key: 'pgt',      name: '피지티',         color: '#5c7cfa' },
 ];
 
 const apiFetch = async (params) => {
@@ -82,7 +83,7 @@ export default function SteamDashboard() {
   const [countdown, setCountdown] = useState(60);
   const [error, setError] = useState(null);
 
-  const [selectedDate, setSelectedDate] = useState('2026-06-30');
+  const [selectedDate, setSelectedDate] = useState('2026-07-03');
   const [hourlyData, setHourlyData] = useState([]);
   const [hourlyLoading, setHourlyLoading] = useState(false);
 
@@ -90,9 +91,10 @@ export default function SteamDashboard() {
   const [dailyData, setDailyData] = useState([]);
   const [dailyLoading, setDailyLoading] = useState(false);
 
-  const [visible, setVisible] = useState(
-    CUSTOMERS.filter(c => !c.inactive).map(c => c.key)
-  );
+  const [monthlyData, setMonthlyData] = useState([]);
+  const [monthlyLoading, setMonthlyLoading] = useState(false);
+
+  const [visible, setVisible] = useState(CUSTOMERS.map(c => c.key));
 
   useEffect(() => setMounted(true), []);
 
@@ -136,6 +138,15 @@ export default function SteamDashboard() {
       .catch(() => setDailyData([]))
       .finally(() => setDailyLoading(false));
   }, [tab, dateRange]);
+
+  useEffect(() => {
+    if (tab !== 'monthly') return;
+    setMonthlyLoading(true);
+    apiFetch({ type: 'monthly' })
+      .then(setMonthlyData)
+      .catch(() => setMonthlyData([]))
+      .finally(() => setMonthlyLoading(false));
+  }, [tab]);
 
   if (!mounted) return null;
 
@@ -194,6 +205,16 @@ export default function SteamDashboard() {
     </div>
   );
 
+  const FilterPills = () => (
+    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+      {CUSTOMERS.map(c => (
+        <button key={c.key} onClick={() => toggleCust(c.key)} style={pillStyle(c.color, visible.includes(c.key))}>
+          {c.name}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <>
       <Head>
@@ -240,7 +261,7 @@ export default function SteamDashboard() {
 
         {/* Tabs */}
         <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
-          {[['realtime','실시간'],['hourly','시간별'],['daily','일별']].map(([id, label]) => (
+          {[['realtime','실시간'],['hourly','시간별'],['daily','일별'],['monthly','월별']].map(([id, label]) => (
             <button key={id} onClick={() => setTab(id)} style={tabStyle(tab === id)}>{label}</button>
           ))}
         </div>
@@ -276,11 +297,11 @@ export default function SteamDashboard() {
                     borderRadius: 12,
                     border: `0.5px solid ${active ? c.color + '44' : 'var(--border)'}`,
                     padding: '14px',
-                    borderTop: `3px solid ${c.inactive ? 'var(--border-strong)' : c.color}`,
+                    borderTop: `3px solid ${c.dormant ? 'var(--border-strong)' : c.color}`,
                   }}>
-                    <p style={{ fontSize: 13, fontWeight: 500, color: c.inactive ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2 }}>
+                    <p style={{ fontSize: 12, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2 }}>
                       {c.name}
-                      {c.inactive && <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 4 }}>미사용</span>}
+                      {c.dormant && <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 4 }}>구선</span>}
                     </p>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
                       <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>분당</p>
@@ -306,19 +327,13 @@ export default function SteamDashboard() {
         {/* ── 시간별 ── */}
         {tab === 'hourly' && (
           <div>
-            <div style={{ display: 'flex', gap: 12, marginBottom: 14, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 12, marginBottom: 14, alignItems: 'flex-end' }}>
               <div>
                 <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>날짜</label>
                 <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} />
               </div>
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
-              {CUSTOMERS.map(c => (
-                <button key={c.key} onClick={() => toggleCust(c.key)} style={pillStyle(c.color, visible.includes(c.key))}>
-                  {c.name}
-                </button>
-              ))}
-            </div>
+            <FilterPills />
             {hourlyLoading ? <EmptyState msg="로딩 중..." /> :
               hourlyData.length === 0 ? <EmptyState msg={`${selectedDate} 데이터가 없습니다`} /> : (
               <div style={card}>
@@ -355,13 +370,7 @@ export default function SteamDashboard() {
                 <input type="date" value={dateRange.end} onChange={e => setDateRange(p => ({ ...p, end: e.target.value }))} />
               </div>
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
-              {CUSTOMERS.map(c => (
-                <button key={c.key} onClick={() => toggleCust(c.key)} style={pillStyle(c.color, visible.includes(c.key))}>
-                  {c.name}
-                </button>
-              ))}
-            </div>
+            <FilterPills />
             {dailyLoading ? <EmptyState msg="로딩 중..." /> :
               dailyData.length === 0 ? <EmptyState msg="선택한 기간 데이터가 없습니다" /> : (
               <div style={card}>
@@ -380,6 +389,65 @@ export default function SteamDashboard() {
                   </LineChart>
                 </ResponsiveContainer>
                 <SummaryBar data={dailyData} list={visibleList} />
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── 월별 ── */}
+        {tab === 'monthly' && (
+          <div>
+            <FilterPills />
+            {monthlyLoading ? <EmptyState msg="로딩 중..." /> :
+              monthlyData.length === 0 ? <EmptyState msg="데이터가 없습니다" /> : (
+              <div style={card}>
+                <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
+                  월별 사용량 (톤/월)
+                </p>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={monthlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                    <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 11 }} tickLine={false} />
+                    <YAxis tick={{ fill: '#64748b', fontSize: 11 }} tickLine={false} axisLine={false} unit="t" />
+                    <Tooltip content={<CustomTooltip />} />
+                    {visibleList.map(c => (
+                      <Bar key={c.key} dataKey={c.key} fill={c.color} stackId="stack" />
+                    ))}
+                  </BarChart>
+                </ResponsiveContainer>
+
+                {/* Monthly table */}
+                <div style={{ marginTop: 20, overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+                    <thead>
+                      <tr style={{ borderBottom: '0.5px solid var(--border-strong)' }}>
+                        <th style={{ padding: '6px 8px', textAlign: 'left', color: 'var(--text-muted)', fontWeight: 400 }}>월</th>
+                        {visibleList.map(c => (
+                          <th key={c.key} style={{ padding: '6px 8px', textAlign: 'right', color: c.color, fontWeight: 400 }}>{c.name}</th>
+                        ))}
+                        <th style={{ padding: '6px 8px', textAlign: 'right', color: 'var(--text-secondary)', fontWeight: 400 }}>합계</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {monthlyData.map((row, i) => {
+                        const total = visibleList.reduce((s, c) => s + (Number(row[c.key]) || 0), 0);
+                        return (
+                          <tr key={i} style={{ borderBottom: '0.5px solid var(--border)', background: i % 2 !== 0 ? 'var(--surface-2)' : 'transparent' }}>
+                            <td style={{ padding: '7px 8px', color: 'var(--text-secondary)', fontWeight: 500 }}>{row.month}</td>
+                            {visibleList.map(c => (
+                              <td key={c.key} style={{ padding: '7px 8px', textAlign: 'right', color: 'var(--text-primary)' }}>
+                                {Number(row[c.key] || 0).toFixed(2)}
+                              </td>
+                            ))}
+                            <td style={{ padding: '7px 8px', textAlign: 'right', color: 'var(--text-accent)', fontWeight: 500 }}>
+                              {total.toFixed(2)}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </div>
