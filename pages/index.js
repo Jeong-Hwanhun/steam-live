@@ -271,14 +271,14 @@ export default function SteamDashboard() {
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}> 판매 총량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}> 분당 판매총량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalFlow}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
                 </p>
               </div>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 판매량 합계</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>시간당 판매총량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
