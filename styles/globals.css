@@ -1,0 +1,43 @@
+:root {
+  --bg: #0a0f1a;
+  --surface-1: #111827;
+  --surface-2: #1f2937;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-accent: #60a5fa;
+  --text-danger: #f87171;
+  --text-warning: #fbbf24;
+  --bg-danger: rgba(239,68,68,0.1);
+  --bg-warning: rgba(251,191,36,0.1);
+  --border-danger: rgba(239,68,68,0.3);
+  --border-warning: rgba(251,191,36,0.3);
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+input[type="date"] {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  padding: 6px 10px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--text-accent);
+}
+
+button { font-family: inherit; }
