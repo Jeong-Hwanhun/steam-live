@@ -342,8 +342,7 @@ export default function SteamDashboard() {
                     <div>
                       <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>압력</p>
                       <p style={{ fontSize: 19, fontWeight: 500, color: pv !== null && pv >= 0.5 ? c.color : 'var(--text-muted)' }}>
-                        {pv === null || pv < 0.5 ? '—' : (pv / 10).toFixed(2)}
-                        <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>MPa</span>
+                        {pv === null || pv < 0.5 ? '—' : <>{(pv / 10).toFixed(2)}<span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>MPa</span></>}
                       </p>
                     </div>
                     ); })()}
