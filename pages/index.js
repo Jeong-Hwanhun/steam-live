@@ -317,7 +317,7 @@ export default function SteamDashboard() {
                     justifyContent: 'space-between',
                   }}>
                     {/* 업체명 */}
-                    <p style={{ fontSize: 13, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', minHeight: 32 }}>
+                    <p style={{ fontSize: 14, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', minHeight: 32 }}>
                       {c.name}
                     </p>
                     {/* 분당 | 1시간 */}
@@ -342,8 +342,8 @@ export default function SteamDashboard() {
                     <div>
                       <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>압력</p>
                       <p style={{ fontSize: 19, fontWeight: 500, color: pv !== null && pv > 0.5 ? c.color : 'var(--text-muted)' }}>
-                        {pv === null ? '—' : pv.toFixed(1)}
-                        <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>bar</span>
+                        {pv === null ? '—' : (pv / 10).toFixed(2)}
+                        <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>MPa</span>
                       </p>
                     </div>
                     ); })()}
