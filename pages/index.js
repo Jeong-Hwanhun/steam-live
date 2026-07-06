@@ -285,14 +285,14 @@ export default function SteamDashboard() {
                 <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 분당 판매량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalFlow}
-                  <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
+                  <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
                 </p>
               </div>
               <div style={card}>
                 <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 판매량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
-                  <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>ton/시간</span>
+                  <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
                 </p>
               </div>
             </div>
@@ -327,7 +327,7 @@ export default function SteamDashboard() {
                       <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간 판매량</p>
                       <p style={{ fontSize: 19, fontWeight: 500, color: rv !== null && rv > 0 ? c.color : 'var(--text-muted)' }}>
                         {rv === null ? '—' : rv.toFixed(3)}
-                        <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>톤</span>
+                        <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>ton</span>
                       </p>
                     </div>
                   </div>
