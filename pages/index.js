@@ -289,7 +289,7 @@ export default function SteamDashboard() {
                 </p>
               </div>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 시간당 판매량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 판매량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
@@ -325,7 +325,7 @@ export default function SteamDashboard() {
                       </p>
                     </div>
                     <div>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>시간당 판매량</p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간 판매량</p>
                       <p style={{ fontSize: 15, color: rv !== null && rv > 0 ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
                         {rv === null ? '—' : rv.toFixed(3)}
                         <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>톤</span>
