@@ -171,7 +171,7 @@ export default function SteamDashboard() {
     ? CUSTOMERS.reduce((s, c) => s + (Number(rolling[c.key]) || 0), 0).toFixed(2)
     : '—';
 
-  const isStale = flow?.data_time && Date.now() - new Date(flow.data_time) > 360000;
+  const isStale = flow?.data_time && Date.now() - new Date(flow.data_time) > 450000;
   const visibleList = CUSTOMERS.filter(c => visible.includes(c.key));
   const toggleCust = key => setVisible(p =>
     p.includes(key) ? p.filter(k => k !== key) : [...p, key]
