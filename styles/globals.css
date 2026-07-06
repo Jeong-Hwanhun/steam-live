@@ -51,3 +51,14 @@ button { font-family: inherit; }
     height: 195px;
   }
 }
+.customer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .customer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
