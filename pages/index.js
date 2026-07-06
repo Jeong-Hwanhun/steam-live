@@ -304,7 +304,7 @@ export default function SteamDashboard() {
               {CUSTOMERS.map(c => {
                 const fv = flow ? Number(flow[c.key] || 0) : null;
                 const rv = rolling ? Number(rolling[c.key] || 0) : null;
-                const active = fv !== null && fv > 0;
+                const active = fv !== null && fv >= 1;
                 return (
                   <div key={c.key} className="customer-card" style={{
                     background: 'var(--surface-1)',
@@ -315,6 +315,7 @@ export default function SteamDashboard() {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 10,
+                    height: '100%',
                   }}>
                     {/* 업체명 */}
                     <p style={{ fontSize: 14, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', minHeight: 32 }}>
