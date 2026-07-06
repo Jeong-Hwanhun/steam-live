@@ -37,11 +37,11 @@ input[type="date"]:focus {
 }
 button { font-family: inherit; }
 .customer-card {
-  height: 160px;
+  min-height: 150px;
 }
 @media (max-width: 768px) {
   .customer-card {
-    height: 180px;
+    min-height: 165px;
   }
 }
 .customer-grid {
