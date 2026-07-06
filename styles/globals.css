@@ -16,15 +16,12 @@
   --border-warning: rgba(251,191,36,0.3);
   --radius: 8px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background: var(--bg);
   color: var(--text-primary);
   font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
 }
-
 input[type="date"] {
   background: var(--surface-2);
   border: 0.5px solid var(--border-strong);
@@ -34,21 +31,17 @@ input[type="date"] {
   font-size: 14px;
   font-family: inherit;
 }
-
 input[type="date"]:focus {
   outline: none;
   border-color: var(--text-accent);
 }
-
 button { font-family: inherit; }
-
 .customer-card {
-  height: 175px;
+  height: 195px;
 }
-
 @media (max-width: 768px) {
   .customer-card {
-    height: 195px;
+    height: 215px;
   }
 }
 .customer-grid {
@@ -56,7 +49,6 @@ button { font-family: inherit; }
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
-
 @media (max-width: 768px) {
   .customer-grid {
     grid-template-columns: repeat(2, 1fr);
