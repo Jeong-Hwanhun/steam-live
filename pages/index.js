@@ -73,6 +73,17 @@ const card = {
   padding: '1rem 1.25rem',
 };
 
+const todayKST = () => {
+  const kst = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().split('T')[0];
+};
+
+const monthAgoKST = () => {
+  const kst = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  kst.setDate(kst.getDate() - 30);
+  return kst.toISOString().split('T')[0];
+};
+
 export default function SteamDashboard() {
   const [mounted, setMounted] = useState(false);
   const [tab, setTab] = useState('realtime');
@@ -83,11 +94,11 @@ export default function SteamDashboard() {
   const [countdown, setCountdown] = useState(60);
   const [error, setError] = useState(null);
 
-  const [selectedDate, setSelectedDate] = useState('2026-07-03');
+  const [selectedDate, setSelectedDate] = useState(todayKST());
   const [hourlyData, setHourlyData] = useState([]);
   const [hourlyLoading, setHourlyLoading] = useState(false);
 
-  const [dateRange, setDateRange] = useState({ start: '2026-06-01', end: '2026-07-03' });
+  const [dateRange, setDateRange] = useState({ start: monthAgoKST(), end: todayKST() });
   const [dailyData, setDailyData] = useState([]);
   const [dailyLoading, setDailyLoading] = useState(false);
 
@@ -271,22 +282,22 @@ export default function SteamDashboard() {
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}> 분당 판매총량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 분당 사용량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalFlow}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
                 </p>
               </div>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>시간당 판매총량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 합계</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
-                  <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>ton/시간</span>
+                  <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
                 </p>
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 10 }}>
               {CUSTOMERS.map(c => {
                 const fv = flow ? Number(flow[c.key] || 0) : null;
                 const rv = rolling ? Number(rolling[c.key] || 0) : null;
@@ -298,20 +309,23 @@ export default function SteamDashboard() {
                     border: `0.5px solid ${active ? c.color + '44' : 'var(--border)'}`,
                     padding: '14px',
                     borderTop: `3px solid ${c.dormant ? 'var(--border-strong)' : c.color}`,
+                    minHeight: 150,
+                    display: 'flex',
+                    flexDirection: 'column',
                   }}>
-                    <p style={{ fontSize: 12, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2 }}>
+                    <p style={{ fontSize: 12, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2, minHeight: 32 }}>
                       {c.name}
-                      {c.dormant && <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 4 }}>구선</span>}
+                      
                     </p>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}></p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>분당</p>
                       <p style={{ fontSize: 22, fontWeight: 500, color: fv === null ? 'var(--text-muted)' : (active ? c.color : 'var(--text-muted)') }}>
                         {fv === null ? '—' : fv.toFixed(1)}
                         <span style={{ fontSize: 12, color: 'var(--text-muted)', marginLeft: 3, fontWeight: 400 }}>kg</span>
                       </p>
                     </div>
                     <div>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간 판매량</p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간</p>
                       <p style={{ fontSize: 15, color: rv !== null && rv > 0 ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
                         {rv === null ? '—' : rv.toFixed(3)}
                         <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>톤</span>
@@ -338,7 +352,7 @@ export default function SteamDashboard() {
               hourlyData.length === 0 ? <EmptyState msg={`${selectedDate} 데이터가 없습니다`} /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  {selectedDate} 시간별 판매량 (톤/시간)
+                  {selectedDate} 시간별 사용량 (톤/시간)
                 </p>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={hourlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
@@ -375,7 +389,7 @@ export default function SteamDashboard() {
               dailyData.length === 0 ? <EmptyState msg="선택한 기간 데이터가 없습니다" /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  일별 판매량 (톤/일)
+                  일별 사용량 (톤/일)
                 </p>
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={dailyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
@@ -402,7 +416,7 @@ export default function SteamDashboard() {
               monthlyData.length === 0 ? <EmptyState msg="데이터가 없습니다" /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  월별 판매량 (톤/월)
+                  월별 사용량 (톤/월)
                 </p>
                 <ResponsiveContainer width="100%" height={280}>
                   <BarChart data={monthlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
