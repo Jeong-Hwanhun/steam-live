@@ -282,14 +282,14 @@ export default function SteamDashboard() {
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 분당 판매량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>10개 업체 분당 판매총량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalFlow}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
                 </p>
               </div>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 판매량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 판매량 합계</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
@@ -297,7 +297,7 @@ export default function SteamDashboard() {
               </div>
             </div>
 
-            <div className="customer-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 10 }}>
               {CUSTOMERS.map(c => {
                 const fv = flow ? Number(flow[c.key] || 0) : null;
                 const rv = rolling ? Number(rolling[c.key] || 0) : null;
@@ -309,11 +309,11 @@ export default function SteamDashboard() {
                     border: `0.5px solid ${active ? c.color + '44' : 'var(--border)'}`,
                     padding: '14px',
                     borderTop: `3px solid ${c.dormant ? 'var(--border-strong)' : c.color}`,
-                    minHeight: 150,
+                    minHeight: 175,
                     display: 'flex',
                     flexDirection: 'column',
                   }}>
-                    <p style={{ fontSize: 12, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2, minHeight: 32 }}>
+                    <p style={{ fontSize: 14, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2, minHeight: 36 }}>
                       {c.name}
                       
                     </p>
@@ -326,7 +326,7 @@ export default function SteamDashboard() {
                     </div>
                     <div>
                       <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간 판매량</p>
-                      <p style={{ fontSize: 15, color: rv !== null && rv > 0 ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
+                      <p style={{ fontSize: 19, fontWeight: 500, color: rv !== null && rv > 0 ? c.color : 'var(--text-muted)' }}>
                         {rv === null ? '—' : rv.toFixed(3)}
                         <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>톤</span>
                       </p>
