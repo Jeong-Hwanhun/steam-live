@@ -6,7 +6,7 @@ import {
 } from 'recharts';
 
 const CUSTOMERS = [
-  { key: 'sc',       name: '홍덕BW(홍덕SC)', color: '#2a78d6' },
+  { key: 'sc',       name: '홍덕BW(SC)', color: '#2a78d6' },
   { key: 'sw',       name: '홍덕SW',         color: '#eb6834' },
   { key: 'skw',      name: '홍덕SKW',        color: '#1baf7a' },
   { key: 'bw',       name: '홍덕BW(구선)',   color: '#556070', dormant: true },
@@ -331,7 +331,7 @@ export default function SteamDashboard() {
                       </div>
                       <div style={{ flex: 1 }}>
                         <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>최근 1시간</p>
-                        <p style={{ fontSize: 15, fontWeight: 500, color: rv !== null && rv > 0 ? c.color : 'var(--text-muted)' }}>
+                        <p style={{ fontSize: 19, fontWeight: 500, color: rv !== null && rv > 0 ? c.color : 'var(--text-muted)' }}>
                           {rv === null ? '—' : rv.toFixed(3)}
                           <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>ton</span>
                         </p>
@@ -341,7 +341,7 @@ export default function SteamDashboard() {
                     {(() => { const pv = pressure ? Number(pressure[c.key] || 0) : null; return (
                     <div>
                       <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>압력</p>
-                      <p style={{ fontSize: 17, fontWeight: 500, color: pv !== null && pv > 0.5 ? c.color : 'var(--text-muted)' }}>
+                      <p style={{ fontSize: 19, fontWeight: 500, color: pv !== null && pv > 0.5 ? c.color : 'var(--text-muted)' }}>
                         {pv === null ? '—' : pv.toFixed(1)}
                         <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>bar</span>
                       </p>
