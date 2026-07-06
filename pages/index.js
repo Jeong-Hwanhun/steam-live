@@ -314,7 +314,7 @@ export default function SteamDashboard() {
                     borderTop: `3px solid ${c.dormant ? 'var(--border-strong)' : c.color}`,
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
+                    gap: 10,
                   }}>
                     {/* 업체명 */}
                     <p style={{ fontSize: 14, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', minHeight: 32 }}>
@@ -341,8 +341,8 @@ export default function SteamDashboard() {
                     {(() => { const pv = pressure ? Number(pressure[c.key] || 0) : null; return (
                     <div>
                       <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>압력</p>
-                      <p style={{ fontSize: 19, fontWeight: 500, color: pv !== null && pv > 0.5 ? c.color : 'var(--text-muted)' }}>
-                        {pv === null ? '—' : (pv / 10).toFixed(2)}
+                      <p style={{ fontSize: 19, fontWeight: 500, color: pv !== null && pv >= 0.5 ? c.color : 'var(--text-muted)' }}>
+                        {pv === null || pv < 0.5 ? '—' : (pv / 10).toFixed(2)}
                         <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>MPa</span>
                       </p>
                     </div>
