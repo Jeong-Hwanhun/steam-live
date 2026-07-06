@@ -297,7 +297,7 @@ export default function SteamDashboard() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 10 }}>
+            <div className="customer-grid">
               {CUSTOMERS.map(c => {
                 const fv = flow ? Number(flow[c.key] || 0) : null;
                 const rv = rolling ? Number(rolling[c.key] || 0) : null;
