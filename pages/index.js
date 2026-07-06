@@ -90,6 +90,7 @@ export default function SteamDashboard() {
 
   const [flow, setFlow] = useState(null);
   const [rolling, setRolling] = useState(null);
+  const [pressure, setPressure] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(null);
   const [countdown, setCountdown] = useState(60);
   const [error, setError] = useState(null);
@@ -112,12 +113,14 @@ export default function SteamDashboard() {
   const fetchRealtime = useCallback(async () => {
     try {
       setError(null);
-      const [f, r] = await Promise.all([
+      const [f, r, p] = await Promise.all([
         apiFetch({ type: 'flow' }),
         apiFetch({ type: 'rolling' }),
+        apiFetch({ type: 'pressure' }),
       ]);
       setFlow(f[0] || null);
       setRolling(r[0] || null);
+      setPressure(p[0] || null);
       setLastUpdate(new Date());
       setCountdown(60);
     } catch (e) {
@@ -311,25 +314,39 @@ export default function SteamDashboard() {
                     borderTop: `3px solid ${c.dormant ? 'var(--border-strong)' : c.color}`,
                     display: 'flex',
                     flexDirection: 'column',
+                    justifyContent: 'space-between',
                   }}>
-                    <p style={{ fontSize: 14, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', marginBottom: 2, minHeight: 36 }}>
+                    {/* 업체명 */}
+                    <p style={{ fontSize: 13, fontWeight: 500, color: c.dormant ? 'var(--text-muted)' : 'var(--text-primary)', minHeight: 32 }}>
                       {c.name}
-                      
                     </p>
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>분당 판매량</p>
-                      <p style={{ fontSize: 22, fontWeight: 500, color: fv === null ? 'var(--text-muted)' : (active ? c.color : 'var(--text-muted)') }}>
-                        {fv === null ? '—' : fv.toFixed(1)}
-                        <span style={{ fontSize: 12, color: 'var(--text-muted)', marginLeft: 3, fontWeight: 400 }}>kg</span>
-                      </p>
+                    {/* 분당 | 1시간 */}
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <div style={{ flex: 1 }}>
+                        <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>분당 판매량</p>
+                        <p style={{ fontSize: 19, fontWeight: 500, color: fv === null ? 'var(--text-muted)' : (active ? c.color : 'var(--text-muted)') }}>
+                          {fv === null ? '—' : fv.toFixed(1)}
+                          <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>kg</span>
+                        </p>
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>최근 1시간</p>
+                        <p style={{ fontSize: 15, fontWeight: 500, color: rv !== null && rv > 0 ? c.color : 'var(--text-muted)' }}>
+                          {rv === null ? '—' : rv.toFixed(3)}
+                          <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>ton</span>
+                        </p>
+                      </div>
                     </div>
+                    {/* 압력 */}
+                    {(() => { const pv = pressure ? Number(pressure[c.key] || 0) : null; return (
                     <div>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간 판매량</p>
-                      <p style={{ fontSize: 19, fontWeight: 500, color: rv !== null && rv > 0 ? c.color : 'var(--text-muted)' }}>
-                        {rv === null ? '—' : rv.toFixed(3)}
-                        <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>ton</span>
+                      <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>압력</p>
+                      <p style={{ fontSize: 17, fontWeight: 500, color: pv !== null && pv > 0.5 ? c.color : 'var(--text-muted)' }}>
+                        {pv === null ? '—' : pv.toFixed(1)}
+                        <span style={{ fontSize: 10, color: 'var(--text-muted)', marginLeft: 2, fontWeight: 400 }}>bar</span>
                       </p>
                     </div>
+                    ); })()}
                   </div>
                 );
               })}
