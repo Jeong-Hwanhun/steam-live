@@ -282,14 +282,14 @@ export default function SteamDashboard() {
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 분당 사용량</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 분당 판매량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalFlow}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>kg/분</span>
                 </p>
               </div>
               <div style={card}>
-                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 최근 1시간 합계</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 }}>전체 시간당 판매량</p>
                 <p style={{ fontSize: 32, fontWeight: 500 }}>
                   {totalRolling}
                   <span style={{ fontSize: 16, color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>톤</span>
@@ -318,14 +318,14 @@ export default function SteamDashboard() {
                       
                     </p>
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>분당</p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>분당 판매량</p>
                       <p style={{ fontSize: 22, fontWeight: 500, color: fv === null ? 'var(--text-muted)' : (active ? c.color : 'var(--text-muted)') }}>
                         {fv === null ? '—' : fv.toFixed(1)}
                         <span style={{ fontSize: 12, color: 'var(--text-muted)', marginLeft: 3, fontWeight: 400 }}>kg</span>
                       </p>
                     </div>
                     <div>
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>최근 1시간</p>
+                      <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 3 }}>시간당 판매량</p>
                       <p style={{ fontSize: 15, color: rv !== null && rv > 0 ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
                         {rv === null ? '—' : rv.toFixed(3)}
                         <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 3 }}>톤</span>
@@ -352,7 +352,7 @@ export default function SteamDashboard() {
               hourlyData.length === 0 ? <EmptyState msg={`${selectedDate} 데이터가 없습니다`} /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  {selectedDate} 시간별 사용량 (톤/시간)
+                  {selectedDate} 시간별 판매량 (톤/시간)
                 </p>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={hourlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
@@ -389,7 +389,7 @@ export default function SteamDashboard() {
               dailyData.length === 0 ? <EmptyState msg="선택한 기간 데이터가 없습니다" /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  일별 사용량 (톤/일)
+                  일별 판매량 (톤/일)
                 </p>
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={dailyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
@@ -416,7 +416,7 @@ export default function SteamDashboard() {
               monthlyData.length === 0 ? <EmptyState msg="데이터가 없습니다" /> : (
               <div style={card}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', marginBottom: 16 }}>
-                  월별 사용량 (톤/월)
+                  월별 판매량 (톤/월)
                 </p>
                 <ResponsiveContainer width="100%" height={280}>
                   <BarChart data={monthlyData} margin={{ top: 0, right: 0, left: -15, bottom: 0 }}>
